@@ -75,6 +75,12 @@ runtimeargs.add_argument("-uns", "--users_no_search", help="Doesn't search for a
 type_opts = runtimeargs.add_mutually_exclusive_group()
 type_opts.add_argument("-m", "--mobiles", help="Runs against the Jamf mobiles endpoint only.", action="store_true")
 type_opts.add_argument("-c", "--computers", help="Runs against the Jamf computers endpoint only.", action="store_true")
+
+
+# Args for credentials
+runtimeargs.add_argument('--jamf-user', type=str, help='Jamf username')
+runtimeargs.add_argument('--jamf-password', type=str, help='Jamf password')
+runtimeargs.add_argument('--snipe-key', type=str, help='Snipe-IT API key')
 user_args = runtimeargs.parse_args()
 
 if user_args.version:
@@ -120,11 +126,11 @@ try:
     logging.debug("The configured Jamf Pro base url is: {}".format(jamfpro_base))
 
     logging.info("Setting the username to request an api key.")
-    jamf_user = config['jamf']['username']
+    jamf_user = user_args.jamf_user
     logging.debug("The user you provided for Jamf is: {}".format(jamf_user))
 
     logging.info("Setting the password to request an api key.")
-    jamf_password = config['jamf']['password']
+    jamf_password = user_args.jamf_password
     logging.debug("The password you provided for Jamf is: {}".format(jamf_user))    
     
     # This is the address, cname, or FQDN for your snipe-it instance.
@@ -133,7 +139,7 @@ try:
     logging.debug("The configured Snipe-IT base url is: {}".format(snipe_base))
     
     logging.info("Setting the API key for SnipeIT.") 
-    snipe_apiKey = config['snipe-it']['apikey']
+    snipe_apiKey = user_args.snipe_key
     logging.debug("The API key you provided for Snipe is: {}".format(snipe_apiKey))
     
     logging.info("Setting the default status for SnipeIT assets.")
