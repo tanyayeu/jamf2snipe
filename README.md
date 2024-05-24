@@ -1,4 +1,12 @@
 # jamf2snipe
+## Using 1Password to fetch credentials
+We will instead use the bash script jamf2snipe.sh to fetch credentials from 1Password rather than writing the credentials to `settings.conf`.
+
+Modify `ITEM_NAME` in `jamf2snipe.sh` to the correct item name in your 1Password vault. This can be modified as needed. The shell script will get the credentials for your username, password, and Snipe API token and pass it to the python script.\
+
+This script will also assume that a virtual environment has been created at `~/.venv/jamf2snipe` and activate this environment.
+
+Usage: `./jamf2snipe.sh`
 ## Import/Sync Computers from JAMF to Snipe-IT
 ```
 usage: jamf2snipe [-h] [-v] [--auto_incrementing] [--dryrun] [-d] [--do_not_update_jamf] [--do_not_verify_ssl] [-r] [-f] [--version] [-u | -ui | -uf] [-uns] [-m | -c]
